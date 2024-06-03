@@ -20,7 +20,6 @@ type weatherData struct{
 
 func load(filename string) (apiConfigData, error){
 	bytes, err := ioutil.ReadFile(filename)
-
 	if err != nil{
 		return apiConfigData{}, err
 	}
@@ -28,7 +27,6 @@ func load(filename string) (apiConfigData, error){
 	var c apiConfigData
 
 	err = json.Unmarshal(bytes, &c)
-
 	if err != nil{
 		return apiConfigData{}, err
 	}
@@ -46,7 +44,6 @@ func query(city string) (weatherData, error){
 	}
 
 	res, err := http.Get("http://api.openweathermap.org/data/2.5/weather?APPID="+ apiConfig.OpenWeatherMapApiKey + "&q=" + city)
-
 	if err != nil{
 		return weatherData{}, err
 	}
@@ -62,7 +59,6 @@ func query(city string) (weatherData, error){
 
 func main(){
 	http.HandleFunc("/hello", hello)
-
 	http.HandleFunc("/weather/", func(w http.ResponseWriter, r *http.Request) {
 		city := strings.SplitN(r.URL.Path, "/", 3)[2]
 		data, err := query(city)
